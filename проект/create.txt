@@ -1,0 +1,33 @@
+-- Создание таблицы breed
+CREATE TABLE breed (
+    breed_id INTEGER PRIMARY KEY,
+	breed_name VARCHAR(255),
+    quantity_familes INTEGER,
+	honey_name VARCHAR(255)
+);
+-- Создание таблицы hive
+CREATE TABLE hive (
+    hive_id INTEGER PRIMARY KEY,
+	hive_type VARCHAR(255),
+	family_id INTEGER,
+    age INTEGER
+);
+-- Создание таблицы family_bee
+CREATE TABLE family_bee (
+    family_id INTEGER PRIMARY KEY,
+    size_of_family VARCHAR(255),
+	breed_id INTEGER,
+	breed_name VARCHAR(255),
+	hive_id INTEGER UNIQUE,
+	FOREIGN KEY (breed_id) REFERENCES breed(breed_id),
+	FOREIGN KEY (hive_id) REFERENCES hive(hive_id)
+);
+-- Создание таблицы cites
+CREATE TABLE lots (
+    ID INTEGER PRIMARY KEY,
+	city_name VARCHAR(255),
+	breed_id INTEGER,
+	honey_name VARCHAR(255),
+	honey_price INTEGER,
+	FOREIGN KEY (breed_id) REFERENCES breed(breed_id)
+);

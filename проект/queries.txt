@@ -1,0 +1,19 @@
+--количество свободных уликов
+SELECT COUNT(*) FROM hive WHERE family_id = 0;
+--количество средних семей по размеру
+SELECT COUNT(*) FROM family_bee WHERE size_of_family = 'Средняя';
+--самая дорогая цена на мёд
+SELECT * FROM lots ORDER BY honey_price DESC LIMIT 1;
+--город с самой дорогой ценой на мёд
+SELECT city_name FROM lots WHERE honey_price = (SELECT MAX(honey_price) FROM lots);
+--количество семей вида Дальневосточная + Бакфаст
+SELECT 
+    (SELECT quantity_familes FROM breed WHERE breed_name = 'Дальневосточная') + 
+    (SELECT quantity_familes FROM breed WHERE breed_name = 'Бакфаст') AS sum_value;
+--подсчета количества каждого из типа ульев
+SELECT 
+    SUM(CASE WHEN hive_type = 'Горизонтальный' THEN 1 ELSE 0 END) AS count_A,
+    SUM(CASE WHEN hive_type = 'Вертикальный' THEN 1 ELSE 0 END) AS count_B,
+    SUM(CASE WHEN hive_type = 'Альпийский' THEN 1 ELSE 0 END) AS count_C,
+    SUM(CASE WHEN hive_type = 'Кассетный' THEN 1 ELSE 0 END) AS count_D
+FROM hive;
